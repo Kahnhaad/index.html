@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Neutron Earth: The Lost Valley</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #start-screen {
+      padding-top: 100px;
+    }
+
+    #start-btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    #start-btn:hover {
+      background-color: #45a049;
+    }
+
+    .game {
+      display: none;
+      padding: 20px;
+    }
+
+    .choices button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ⭐ START SCREEN -->
+  <div id="start-screen">
+    <h1>Neutron Earth: The Lost Valley</h1>
+    <button id="start-btn">Start Game</button>
+  </div>
+
+  <!-- ⭐ GAME AREA -->
+  <div class="game" id="game">
+    <h2 id="scene-title"></h2>
+    <p id="scene-text"></p>
+    <div class="choices" id="choices"></div>
+  </div>
+
+  <script>
+    const scenes = {
+      start: {
+        title: "The Arrival",
+        text: "You arrive in the Lost Valley, a mysterious place filled with glowing plants and strange creatures.",
+        choices: [
+          { text: "Explore the forest", next: "forest" },
+          { text: "Walk toward the mountains", next: "mountains" }
+        ]
+      },
+
+      forest: {
+        title: "Deep Forest",
+        text: "The forest is alive with glowing insects. You hear something moving in the bushes.",
+        choices: [
+          { text: "Investigate the noise", next: "creature" },
+          { text: "Run away", next: "escape" }
+        ]
+      },
+
+      mountains: {
+        title: "Crystal Mountains",
+        text: "The mountains shine with blue crystals. A cave entrance glows softly.",
+        choices: [
+          { text: "Enter the cave", next: "cave" },
+          { text: "Climb the mountain", next: "climb" }
+        ]
+      },
+
+      creature: {
+        title: "The Creature",
+        text: "A small glowing creature appears. It seems friendly.",
+        choices: [
+          { text: "Pet the creature", next: "friend" },
+          { text: "Back away slowly", next: "escape" }
+        ]
+      },
+
+      escape: {
+        title: "Escape",
+        text: "You escape safely, but you feel like you missed something important.",
+        choices: [
+          { text: "Restart", next: "start" }
+        ]
+      },
+
+      cave: {
+        title: "Crystal Cave",
+        text: "Inside the cave, you find ancient symbols glowing on the walls.",
+        choices: [
+          { text: "Touch the symbols", next: "power" },
+          { text: "Leave the cave", next: "mountains" }
+        ]
+      },
+
+      climb: {
+        title: "Mountain Peak",
+        text: "You reach the top and see the entire valley. A strange tower stands in the distance.",
+        choices: [
+          { text: "Go to the tower", next: "tower" },
+          { text: "Climb back down", next: "mountains" }
+        ]
+      },
+
+      friend: {
+        title: "New Friend",
+        text: "The creature leads you to a hidden clearing filled with glowing flowers.",
+        choices: [
+          { text: "Follow the creature deeper", next: "secret" },
+          { text: "Return to the forest", next: "forest" }
+        ]
+      },
+
+      power: {
+        title: "Ancient Power",
+        text: "The symbols grant you a strange energy. You feel stronger.",
+        choices: [
+          { text: "Use your power", next: "tower" },
+          { text: "Leave the cave", next: "mountains" }
+        ]
+      },
+
+      tower: {
+        title: "The Tower",
+        text: "You reach the tower. A glowing door opens as you approach.",
+        choices: [
+          { text: "Enter the tower", next: "ending" },
+          { text: "Walk away", next: "start" }
+        ]
+      },
+
+      secret: {
+        title: "Secret Garden",
+        text: "You discover a hidden garden with ancient magic. You feel at peace.",
+        choices: [
+          { text: "Restart", next: "start" }
+        ]
+      },
+
+      ending: {
+        title: "The Final Chamber",
+        text: "Inside the tower, you unlock the true power of the Lost Valley. Your adventure ends… for now.",
+        choices: [
+          { text: "Play Again", next: "start" }
+        ]
+      }
+    };
+
+    function showScene(name) {
+      const scene = scenes[name];
+      document.getElementById("scene-title").innerText = scene.title;
+      document.getElementById("scene-text").innerText = scene.text;
+
+      const choicesDiv = document.getElementById("choices");
+      choicesDiv.innerHTML = "";
+
+      scene.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.innerText = choice.text;
+        btn.onclick = () => showScene(choice.next);
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    // ⭐ Start Button Logic
+    document.getElementById("start-btn").onclick = () => {
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("game").style.display = "block";
+      showScene("start");
+    };
+  </script>
+
+</body>
+</html>
