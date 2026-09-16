@@ -5,7 +5,10 @@
   <title>Neutron Earth: The Lost Valley</title>
   <style>
     body {
-      background: #0b1020;
+<div id="start-screen">
+  <h1>Neutron Earth: The Lost Valley</h1>
+  <button id="start-btn">Start Game</button>
+</div>background: #0b1020;
       color: #f4f4f4;
       font-family: system-ui, sans-serif;
       display: flex;
@@ -75,7 +78,11 @@
   </div>
 
   <script>
-    const scenes = {
+   document.getElementById("start-btn").onclick = () => {
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("game").style.display = "block";
+  showScene("start");
+}; const scenes = {
       start: {
         text: `
 Kai, a young environmental scout, sits in a small monitoring station in Australia.
